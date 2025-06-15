@@ -12,7 +12,9 @@ class Settings(BaseSettings):
     )
     debug: bool = Field(default=False, alias="DEBUG")
     project_name: str = Field(default="UserEngagement", alias="PROJECT_NAME")
+    logstash: str = Field(default="localhost", alias="LOGSTASH")
     """Mongo DB"""
     mongo_url: str = Field(default="mongodb://localhost:27017", alias="MONGO_URL")
+
 
 settings = Settings()

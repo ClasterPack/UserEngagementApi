@@ -10,10 +10,12 @@ WORKDIR /app
 
 COPY pyproject.toml poetry.lock* ./
 
+RUN rm -f poetry.lock  # Удаляем lock, чтобы Poetry создал новый
+
 ENV POETRY_VIRTUALENVS_CREATE=false
+
 RUN poetry install --no-root --no-interaction --no-ansi
 
 COPY . .
 
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
-

@@ -9,6 +9,7 @@ from models.engagement import Like
 router = APIRouter(prefix="/likes", tags=["Likes"])
 collection_name = "likes"
 
+
 @router.post("/", response_model=Like)
 async def create_like(like: Like):
     result = await create_item(collection_name, like.model_dump(exclude_unset=True))
@@ -36,6 +37,7 @@ async def update_like(like_id: UUID, like: Like):
 
     result = await update_item(collection_name, like_id, like.model_dump(exclude_unset=True))
     return result
+
 
 @router.delete("/{like_id}")
 async def delete_like(like_id: UUID):

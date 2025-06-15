@@ -9,13 +9,16 @@ from models.engagement import Bookmark
 router = APIRouter(prefix="/bookmarks", tags=["Bookmarks"])
 collection_name = "bookmarks"
 
+
 @router.post("/")
 async def create_bookmark(bookmark: Bookmark):
     return await create_item(collection_name, bookmark.model_dump(exclude_unset=True))
 
+
 @router.get("/", response_model=List[Bookmark])
 async def list_bookmarks(user_uid: Optional[UUID] = None):
     return await get_all_items(collection_name, user_uid)
+
 
 @router.get("/{bookmark_id}", response_model=Bookmark)
 async def get_bookmark(bookmark_id: UUID):
