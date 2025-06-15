@@ -1,0 +1,305 @@
+{
+	"info": {
+		"_postman_id": "f8fa9b70-5e9c-48e6-b7c8-4b44b9d692d1",
+		"name": "UserEngagementApi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "18450766"
+	},
+	"item": [
+		{
+			"name": "bookmarks",
+			"item": [
+				{
+					"name": "list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{baseurl}}/bookmarks"
+					},
+					"response": []
+				},
+				{
+					"name": "user_uid",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/bookmarks/?user_uid={{user_uid}}",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"bookmarks",
+								""
+							],
+							"query": [
+								{
+									"key": "user_uid",
+									"value": "{{user_uid}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"user_uid\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n  \"film_uid\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseurl}}/bookmarks"
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"user_uid\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n  \"film_uid\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseurl}}/bookmarks/{{bookmark_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{baseurl}}/bookmarks/{{bookmark_id}}"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "like",
+			"item": [
+				{
+					"name": "user_uid",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/likes/?user_uid={{user_uid}}",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"likes",
+								""
+							],
+							"query": [
+								{
+									"key": "user_uid",
+									"value": "{{user_uid}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"user_uid\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n  \"film_uid\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\"\n}"
+						},
+						"url": "{{baseurl}}/likes"
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"user_uid\": \"3fa85f65-5717-4562-b3fc-2c963f66afa6\",\n  \"film_uid\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseurl}}/likes"
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"user_uid\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n  \"film_uid\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseurl}}/likes/{{like_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{baseurl}}/likes/{{like_id}}"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Revies",
+			"item": [
+				{
+					"name": "user_uid",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/reviews/?user_uid={{user_uid}}",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"reviews",
+								""
+							],
+							"query": [
+								{
+									"key": "user_uid",
+									"value": "{{user_uid}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseurl}}/reviews/"
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"user_uid\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n  \"film_uid\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n  \"rating\": 1,\n  \"description\": \"string\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseurl}}/reviews"
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"user_uid\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n  \"film_uid\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n  \"rating\": 1,\n  \"description\": \"string\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseurl}}/reviews/{{review_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{baseurl}}/reviews/{{review_id}}"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseurl",
+			"value": "http://0.0.0.0:8000",
+			"type": "default"
+		},
+		{
+			"key": "bookmark_id",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "user_uid",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "like_id",
+			"value": "5b632ef9-834a-4b9f-a858-0729b1744974",
+			"type": "default"
+		},
+		{
+			"key": "review_id",
+			"value": "",
+			"type": "default"
+		}
+	]
+}
