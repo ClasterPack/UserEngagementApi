@@ -6,11 +6,10 @@ from fastapi import APIRouter, HTTPException, Depends
 from core.auth import get_current_user
 from crud import create_item, get_all_items, update_item, get_item, delete_item
 from models.engagement import Like
-from core.logger import get_logger
+from core.logger import logger
 
 router = APIRouter(prefix="/likes", tags=["Likes"])
 collection_name = "likes"
-logger = get_logger()
 
 
 @router.post("/", response_model=Like)

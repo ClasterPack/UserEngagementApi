@@ -1,16 +1,16 @@
-from typing import List, Optional
+from typing import List
 from uuid import UUID
 
 from fastapi import APIRouter, HTTPException, Depends
 
 from core.auth import get_current_user
+from core.logger import logger
 from crud import create_item, delete_item, get_all_items, get_item, update_item
 from models.engagement import Bookmark
-from core.logger import get_logger
+
 
 router = APIRouter(prefix="/bookmarks", tags=["Bookmarks"])
 collection_name = "bookmarks"
-logger = get_logger()
 
 
 

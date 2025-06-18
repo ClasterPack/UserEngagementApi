@@ -6,11 +6,10 @@ from fastapi import APIRouter, HTTPException, Depends
 from core.auth import get_current_user
 from crud import create_item, delete_item, get_all_items, get_item, update_item
 from models.engagement import Review
-from core.logger import get_logger
+from core.logger import logger
 
 router = APIRouter(prefix="/reviews", tags=["Reviews"])
 collection_name = "reviews"
-logger = get_logger()
 
 
 @router.post("/", response_model=Review)

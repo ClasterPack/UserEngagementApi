@@ -1,9 +1,8 @@
 from fastapi import FastAPI
 from api.v1 import bookmarks, likes, reviews
 from core.config import settings
-from core.logger import get_logger
+from core.logger import logger
 
-logger = get_logger()
 app = FastAPI(
     title=settings.project_name,
     docs_url="/api/openapi",
