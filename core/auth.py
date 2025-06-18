@@ -1,12 +1,11 @@
+import httpx
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
-import httpx
 
 from core.config import settings
 
-
-
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl=settings.token_url)
+
 
 async def get_current_user(token: str = Depends(oauth2_scheme)) -> dict:
     """
@@ -30,4 +29,3 @@ async def get_current_user(token: str = Depends(oauth2_scheme)) -> dict:
             headers={"WWW-Authenticate": "Bearer"},
         )
     return response.json()
-

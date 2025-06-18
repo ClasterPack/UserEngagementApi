@@ -1,8 +1,9 @@
 from datetime import datetime
-from uuid import UUID, uuid4
 from typing import Optional
+from uuid import UUID, uuid4
 
 from fastapi.encoders import jsonable_encoder
+
 from core.db import mongo_db
 
 
@@ -36,10 +37,7 @@ async def update_item(collection_name: str, item_id: UUID, data: dict):
     data["modified"] = datetime.now()
     data = jsonable_encoder(data)
 
-    await mongo_db[collection_name].update_one(
-        {"id": str(item_id)},
-        {"$set": data}
-    )
+    await mongo_db[collection_name].update_one({"id": str(item_id)}, {"$set": data})
     return await get_item(collection_name, item_id)
 
 

@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+
 from api.v1 import bookmarks, likes, reviews
 from core.config import settings
 from core.logger import logger

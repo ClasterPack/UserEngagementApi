@@ -21,8 +21,12 @@ class TimeStamp(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
     id: UUID | None = Field(default=None, description="Document ID")
-    created: datetime | None = Field(default_factory=datetime.now, description="Document creation time")
-    modified: datetime | None = Field(default_factory=datetime.now, description="Document modification time")
+    created: datetime | None = Field(
+        default_factory=datetime.now, description="Document creation time"
+    )
+    modified: datetime | None = Field(
+        default_factory=datetime.now, description="Document modification time"
+    )
 
     def touch(self):
         self.modified = datetime.now()
