@@ -1,56 +1,89 @@
 from typing import List, Optional
 from uuid import UUID
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Depends
 
+from core.auth import get_current_user
 from crud import create_item, delete_item, get_all_items, get_item, update_item
 from models.engagement import Bookmark
-from main import logger
+from core.logger import get_logger
 
 router = APIRouter(prefix="/bookmarks", tags=["Bookmarks"])
 collection_name = "bookmarks"
+logger = get_logger()
+
 
 
 @router.post("/")
-async def create_bookmark(bookmark: Bookmark):
-    logger.info("поступил запрос на создание bookmark")
+async def create_bookmark(
+    bookmark: Bookmark,
+    current_user: dict = Depends(get_current_user)
+):
+    logger.info(f"Пользователь {current_user['user_uid']} создаёт закладку")
+
+    if str(bookmark.user_uid) != str(current_user["user_uid"]):
+        raise HTTPException(status_code=403, detail="Нельзя создать закладку от имени другого пользователя")
+
     return await create_item(collection_name, bookmark.model_dump(exclude_unset=True))
 
 
 @router.get("/", response_model=List[Bookmark])
-async def list_bookmarks(user_uid: Optional[UUID] = None):
-    logger.info("поступил запрос на получение list_bookmark")
+async def list_bookmarks(
+    current_user: dict = Depends(get_current_user)
+):
+    logger.info(f"Пользователь {current_user['user_uid']} получает список своих закладок")
 
-    return await get_all_items(collection_name, user_uid)
+    return await get_all_items(collection_name, UUID(current_user["user_uid"]))
 
 
 @router.get("/{bookmark_id}", response_model=Bookmark)
-async def get_bookmark(bookmark_id: UUID):
-    logger.info("поступил запрос на получение bookmark")
+async def get_bookmark(
+    bookmark_id: UUID,
+    current_user: dict = Depends(get_current_user)
+):
+    logger.info(f"Пользователь {current_user['user_uid']} получает закладку {bookmark_id}")
 
     bookmark = await get_item(collection_name, bookmark_id)
     if not bookmark:
         raise HTTPException(status_code=404, detail="Bookmark not found")
+
+    if bookmark["user_uid"] != str(current_user["user_uid"]):
+        raise HTTPException(status_code=403, detail="Нет доступа к этой закладке")
+
     return bookmark
 
 
 @router.put("/{bookmark_id}", response_model=Bookmark)
-async def update_bookmark(bookmark_id: UUID, bookmark: Bookmark):
-    logger.info("поступил запрос на получение bookmark по id")
+async def update_bookmark(
+    bookmark_id: UUID,
+    bookmark: Bookmark,
+    current_user: dict = Depends(get_current_user)
+):
+    logger.info(f"Пользователь {current_user['user_uid']} обновляет закладку {bookmark_id}")
 
     existing = await get_item(collection_name, bookmark_id)
     if not existing:
         raise HTTPException(status_code=404, detail="Bookmark not found")
 
-    result = await update_item(collection_name, bookmark_id, bookmark.model_dump(exclude_unset=True))
-    return result
+    if existing["user_uid"] != str(current_user["user_uid"]):
+        raise HTTPException(status_code=403, detail="Нельзя редактировать чужую закладку")
+
+    return await update_item(collection_name, bookmark_id, bookmark.model_dump(exclude_unset=True))
 
 
 @router.delete("/{bookmark_id}")
-async def delete_bookmark(bookmark_id: UUID):
-    logger.info("поступил запрос на получение delete bookmark по id")
+async def delete_bookmark(
+    bookmark_id: UUID,
+    current_user: dict = Depends(get_current_user)
+):
+    logger.info(f"Пользователь {current_user['user_uid']} удаляет закладку {bookmark_id}")
 
-    deleted = await delete_item(collection_name, bookmark_id)
-    if deleted.deleted_count == 0:
+    existing = await get_item(collection_name, bookmark_id)
+    if not existing:
         raise HTTPException(status_code=404, detail="Bookmark not found")
+
+    if existing["user_uid"] != str(current_user["user_uid"]):
+        raise HTTPException(status_code=403, detail="Нельзя удалить чужую закладку")
+
+    await delete_item(collection_name, bookmark_id)
     return {"status": "deleted"}
