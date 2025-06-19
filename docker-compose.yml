@@ -1,7 +1,7 @@
 services:
   api:
     build: .
-    container_name: engagement_api
+    container_name: user_engagement_api
     ports:
       - "8010:8010"
     depends_on:
@@ -16,7 +16,7 @@ services:
 
   tests:
     build: .
-    container_name: engagement_tests
+    container_name: user_engagement_tests
     depends_on:
       - mongo
     environment:
@@ -28,9 +28,9 @@ services:
     command: [ "pytest", "-v", "--disable-warnings" ]
     restart: "no"
 
-  mongo:
+  user_engagement_db:
     image: mongo:6
-    container_name: mongo
+    container_name: user_engagement_db
     ports:
       - "27017:27017"
     volumes:
