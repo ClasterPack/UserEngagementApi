@@ -20,7 +20,7 @@ class PyObjectId(ObjectId):
 class TimeStamp(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
-    id: UUID | None = Field(default=None, description="Document ID")
+    id: UUID | None = Field(default=None, alias="_id", description="Document ID")
     created: datetime | None = Field(
         default_factory=datetime.now, description="Document creation time"
     )

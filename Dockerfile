@@ -10,7 +10,6 @@ WORKDIR /app
 
 COPY pyproject.toml poetry.lock* ./
 
-RUN rm -f poetry.lock  # Удаляем lock, чтобы Poetry создал новый
 
 ENV POETRY_VIRTUALENVS_CREATE=false
 

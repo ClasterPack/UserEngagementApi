@@ -1,7 +1,7 @@
 services:
   api:
     build: .
-    container_name: bookmark_api
+    container_name: engagement_api
     ports:
       - "8010:8010"
     depends_on:
@@ -13,6 +13,20 @@ services:
     volumes:
       - .:/app
     restart: always
+
+  tests:
+    build: .
+    container_name: engagement_tests
+    depends_on:
+      - mongo
+    environment:
+      - MONGO_URL=${MONGO_URL}
+      - DEBUG=${DEBUG}
+      - PROJECT_NAME=${PROJECT_NAME}
+    volumes:
+      - .:/app
+    command: [ "pytest", "-v", "--disable-warnings" ]
+    restart: "no"
 
   mongo:
     image: mongo:6
